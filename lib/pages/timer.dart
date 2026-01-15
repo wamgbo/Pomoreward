@@ -1,6 +1,7 @@
 // testtimer.dart
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'counter.dart';
 
 enum TimerMode { focus, breakTime }
 
@@ -12,16 +13,15 @@ class TimerStore {
 
   final ValueNotifier<int> seconds = ValueNotifier<int>(1500);
   final ValueNotifier<String> title = ValueNotifier<String>("Time to focus");
-  final ValueNotifier<TimerMode> mode =
-      ValueNotifier<TimerMode>(TimerMode.focus);
-  final ValueNotifier<Color> bgColor =
-      ValueNotifier<Color>(Colors.blue);
+  final ValueNotifier<TimerMode> mode = ValueNotifier<TimerMode>(
+    TimerMode.focus,
+  );
+  final ValueNotifier<Color> bgColor = ValueNotifier<Color>(Colors.blue);
 
   void start() {
     if (_timer?.isActive ?? false) return;
 
-    bgColor.value =
-        mode.value == TimerMode.focus ? Colors.red : Colors.green;
+    bgColor.value = mode.value == TimerMode.focus ? Colors.red : Colors.green;
 
     _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (seconds.value > 0) {
@@ -31,10 +31,11 @@ class TimerStore {
 
         if (mode.value == TimerMode.focus) {
           mode.value = TimerMode.breakTime;
-          seconds.value = 1;
+          seconds.value = 300;
           bgColor.value = Colors.green;
-          title.value = "Time to rest";
+          title.value = "Time to take break";
         } else {
+          Counter.instance.increment();
           mode.value = TimerMode.focus;
           seconds.value = 1500;
           bgColor.value = Colors.red;

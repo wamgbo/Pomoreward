@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'pages/clock.dart';
-import 'pages/sandbox.dart';
-import 'pages/sandbox2.dart';
-import 'pages/testtimer.dart'; // 確保導入 TimerStore
+import 'pages/timer.dart';
+import 'pages/happwheel.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'pages/counter.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final prefs = await SharedPreferences.getInstance();
+  Counter.instance.count.value =
+      prefs.getInt('lucky_tickets') ?? 0; //從手機硬碟讀取抽獎次數，如果為空就為0再交給Counter
+
   runApp(const MaterialApp(home: MainPage()));
 }
 
@@ -17,7 +24,7 @@ class MainPage extends StatefulWidget {
 
 class _MyAppState extends State<MainPage> {
   int _index = 0;
-  final pages = [const sandbox(), const sandbox2(), const Clock()];
+  final pages = [const Clock(), FortuneWheelPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +38,11 @@ class _MyAppState extends State<MainPage> {
           appBar: AppBar(
             backgroundColor: currentBgColor, // 按下 Start，這裡會立刻變色
             elevation: 0,
-            leading: IconButton(
-              onPressed: () => print("點擊了圖片"),
-              icon: ClipRRect(
+            leading: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ClipRRect(
                 borderRadius: BorderRadius.circular(18),
-                child: Image.asset(
-                  "assets/icon_home.png",
-                  errorBuilder: (_, __, ___) => const Icon(Icons.home, color: Colors.white),
-                ),
+                child: Image.asset("assets/icon_home.png"),
               ),
             ),
           ),
@@ -47,9 +51,8 @@ class _MyAppState extends State<MainPage> {
             currentIndex: _index,
             onTap: (i) => setState(() => _index = i),
             items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: '首頁'),
-              BottomNavigationBarItem(icon: Icon(Icons.person), label: '我的'),
               BottomNavigationBarItem(icon: Icon(Icons.timer), label: '計時器'),
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: '首頁'),
             ],
           ),
         );
