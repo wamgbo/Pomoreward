@@ -1,3 +1,8 @@
+<p align="center">
+  <img src="https://img.shields.io/badge/Flutter-3.x-blue?style=for-the-badge&logo=flutter" />
+  <img src="https://img.shields.io/badge/Dart-3.x-04599C?style=for-the-badge&logo=dart" />
+  <img src="https://img.shields.io/badge/Platform-Android%20%7C%20iOS%20%7C%20Web-success?style=for-the-badge" />
+</p>
 # 🍅 Pomoreward
 
 **Pomoreward** 是一個結合「番茄工作法」與「獎勵機制」的生產力工具。專注工作累積「抽獎次數」，換取你想要的自定義獎勵。
