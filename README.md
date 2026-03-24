@@ -24,7 +24,8 @@ Pomoreward 是一個結合「番茄工作法」與「獎勵機制」的生產力
 
     git clone https://github.com/wamgbo/Pomoreward.git
 
-    安裝與執行
+    安裝與執行<img width="1587" height="2245" alt="Blue Illustration Summer Activities Poster(1)" src="https://github.com/user-attachments/assets/c7d5fcfe-6be0-4e45-86a3-70b3fc2ca9f5" />
+
     Bash
 
     # 以 npm 為例
